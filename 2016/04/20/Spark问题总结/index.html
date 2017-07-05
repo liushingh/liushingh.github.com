@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spark问题总结 | liushingh的博客</title>
+  <meta name="author" content="shingh liu">
+  
+  <meta name="description" content="编译问题问题1报错信息：1[ERROR] Java heap space   java.lang.OutOfMemoryError: Java heap space
+报错原因：内存不够问题解决：12set MAVEN_OPTS=-Xms1g -Xmx1g  # Windows 环境export MA">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Spark问题总结"/>
+  <meta property="og:site_name" content="liushingh的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liushingh的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46267119-1']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F441b7d6c6aab75f3a2e2c31874b778b8' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liushingh的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+
+<li><a href="/atom.xml">RSS</a></li>
+
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-20T07:24:34.000Z"><a href="/2016/04/20/Spark问题总结/">Apr 20 2016</a></time>
+      
+      
+  
+    <h1 class="title">Spark问题总结</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="编译问题"><a href="#编译问题" class="headerlink" title="编译问题"></a>编译问题</h1><h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>报错信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[ERROR] Java heap space   java.lang.OutOfMemoryError: Java heap space</div></pre></td></tr></table></figure></p>
+<p>报错原因：内存不够<br>问题解决：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> MAVEN_OPTS=-Xms1g -Xmx1g  <span class="comment"># Windows 环境</span></div><div class="line"><span class="built_in">export</span> MAVEN_OPTS=<span class="string">"-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"</span>  <span class="comment"># Linux 环境</span></div></pre></td></tr></table></figure></p>
+<p>补充说明：<br>-Xms 表示 JVM 的初始堆内存，<br>-Xmx 表示 JVM 的最大堆内存，<br>-XX:MaxPermSize 表示 JVM 最大的非堆内存，<br>-XX:ReservedCodeCacheSize 表示代码缓存的最大值，<br>更多参数可以参见 <a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html" target="_blank" rel="external">http://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></p>
+<h1 id="运行问题"><a href="#运行问题" class="headerlink" title="运行问题"></a>运行问题</h1><h2 id="问题1-1"><a href="#问题1-1" class="headerlink" title="问题1"></a>问题1</h2><p>报错信息:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A master URL must be <span class="built_in">set</span> <span class="keyword">in</span> your configuration</div></pre></td></tr></table></figure></p>
+<p>报错原因：没有指定 master<br>问题解决：<br>点击 Edit Configurations… ，其中 Consumer 是你需要运行的类<br><img src="/img/config.png" alt="进入配置"><br>把 -Dspark.master=local 填入 VM options: 参数的输入框<br><img src="/img/vm.png" alt="输入参数"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/编程开发/">编程开发</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/spark/">spark</a>, <a href="/tags/编译/">编译</a>, <a href="/tags/maven/">maven</a>, <a href="/tags/heap/">heap</a>
+  </div>
+
+	<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2016/04/20/Spark问题总结/" data-title="Spark问题总结" data-url="http://liushingh.github.io/2016/04/20/Spark问题总结/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"liushingh"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+<!--
+  <h1 class="title">Kommentare</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://liushingh.github.io/2016/04/20/Spark问题总结/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+  -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:liushingh.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/业界动态/">业界动态</a><small>1</small></li>
+  
+    <li><a href="/categories/生活娱乐/">生活娱乐</a><small>3</small></li>
+  
+    <li><a href="/categories/编程开发/">编程开发</a><small>15</small></li>
+  
+    <li><a href="/categories/网络推广/">网络推广</a><small>3</small></li>
+  
+    <li><a href="/categories/软件应用/">软件应用</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/CPA/" style="font-size: 10px;">CPA</a> <a href="/tags/CPC/" style="font-size: 10px;">CPC</a> <a href="/tags/CPM/" style="font-size: 10px;">CPM</a> <a href="/tags/CPS/" style="font-size: 10px;">CPS</a> <a href="/tags/CPT/" style="font-size: 10px;">CPT</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hive/" style="font-size: 16.67px;">Hive</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mongo/" style="font-size: 10px;">Mongo</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/Spotlight/" style="font-size: 10px;">Spotlight</a> <a href="/tags/T2O/" style="font-size: 10px;">T2O</a> <a href="/tags/UDF/" style="font-size: 10px;">UDF</a> <a href="/tags/Zeppelin/" style="font-size: 20px;">Zeppelin</a> <a href="/tags/beeline/" style="font-size: 10px;">beeline</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/consumer/" style="font-size: 10px;">consumer</a> <a href="/tags/crx/" style="font-size: 10px;">crx</a> <a href="/tags/datediff/" style="font-size: 10px;">datediff</a> <a href="/tags/doc/" style="font-size: 10px;">doc</a> <a href="/tags/document/" style="font-size: 10px;">document</a> <a href="/tags/extension/" style="font-size: 10px;">extension</a> <a href="/tags/from-unixtime/" style="font-size: 10px;">from_unixtime</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jitouch/" style="font-size: 10px;">jitouch</a> <a href="/tags/kettle/" style="font-size: 10px;">kettle</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/macbook/" style="font-size: 10px;">macbook</a> <a href="/tags/manual/" style="font-size: 10px;">manual</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/producer/" style="font-size: 10px;">producer</a> <a href="/tags/rMBP/" style="font-size: 10px;">rMBP</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spark/" style="font-size: 16.67px;">spark</a> <a href="/tags/streaming/" style="font-size: 10px;">streaming</a> <a href="/tags/thriftserver/" style="font-size: 10px;">thriftserver</a> <a href="/tags/tmall/" style="font-size: 10px;">tmall</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/函数/" style="font-size: 10px;">函数</a> <a href="/tags/天猫/" style="font-size: 10px;">天猫</a> <a href="/tags/安装/" style="font-size: 10px;">安装</a> <a href="/tags/层次/" style="font-size: 10px;">层次</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/广告类型/" style="font-size: 10px;">广告类型</a> <a href="/tags/广告系列/" style="font-size: 10px;">广告系列</a> <a href="/tags/彩票/" style="font-size: 10px;">彩票</a> <a href="/tags/怎么玩/" style="font-size: 10px;">怎么玩</a> <a href="/tags/截屏/" style="font-size: 10px;">截屏</a> <a href="/tags/手册/" style="font-size: 10px;">手册</a> <a href="/tags/技巧/" style="font-size: 13.33px;">技巧</a> <a href="/tags/护眼/" style="font-size: 10px;">护眼</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/数据仓库/" style="font-size: 10px;">数据仓库</a> <a href="/tags/文档/" style="font-size: 10px;">文档</a> <a href="/tags/时间/" style="font-size: 10px;">时间</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/渠道/" style="font-size: 13.33px;">渠道</a> <a href="/tags/状态码/" style="font-size: 10px;">状态码</a> <a href="/tags/篮彩/" style="font-size: 10px;">篮彩</a> <a href="/tags/篮球/" style="font-size: 10px;">篮球</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编译/" style="font-size: 10px;">编译</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/记忆/" style="font-size: 10px;">记忆</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 shingh liu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

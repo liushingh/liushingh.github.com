@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>streaming | liushingh的博客</title>
+  <meta name="author" content="shingh liu">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="liushingh的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liushingh的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46267119-1']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F441b7d6c6aab75f3a2e2c31874b778b8' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liushingh的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+
+<li><a href="/atom.xml">RSS</a></li>
+
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">streaming</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-19T08:14:34.000Z"><a href="/2016/04/19/Spark Streaming学习/">Apr 19 2016</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/19/Spark Streaming学习/">Spark Streaming学习</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>直接贴代码<br>Producer.scala<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">package kafka</div><div class="line"></div><div class="line">import java.util.Properties</div><div class="line"></div><div class="line">import kafka.producer.&#123;KeyedMessage, Producer, ProducerConfig&#125;</div><div class="line">import org.codehaus.jettison.json.JSONObject</div><div class="line"></div><div class="line">import scala.util.Random</div><div class="line"></div><div class="line">object Producer &#123;</div><div class="line">  def main(args: Array[String]) &#123;</div><div class="line">    val topic = <span class="string">"test"</span></div><div class="line">    val brokers = <span class="string">"192.168.20.33:9092,192.168.20.34:9092,192.168.20.35:9092"</span></div><div class="line">    val props = new Properties()</div><div class="line">    props.put(<span class="string">"metadata.broker.list"</span>, brokers)</div><div class="line">    props.put(<span class="string">"serializer.class"</span>, <span class="string">"kafka.serializer.StringEncoder"</span>)</div><div class="line"></div><div class="line">    val kafkaConfig = new ProducerConfig(props)</div><div class="line">    val producer = new Producer[String, String](kafkaConfig)</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</div><div class="line">      val separator = <span class="string">"\t"</span></div><div class="line">      val message = Random.nextInt(10) + separator + <span class="string">"100"</span> + separator + System.currentTimeMillis()</div><div class="line"></div><div class="line">      // produce message</div><div class="line">      producer.send(new KeyedMessage[String, String](topic, message))</div><div class="line">      println(<span class="string">"Message sent: "</span> + message)</div><div class="line"></div><div class="line">      Thread.sleep(1000)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Consumer.scala<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">package kafka</div><div class="line"></div><div class="line">import java.util</div><div class="line">import java.util.Properties</div><div class="line"></div><div class="line">import org.apache.spark.&#123;Logging, SparkConf&#125;</div><div class="line">import org.apache.spark.streaming.&#123;Seconds, StreamingContext&#125;</div><div class="line">import org.apache.spark.streaming.kafka.KafkaUtils</div><div class="line">import redis.clients.jedis.&#123;Jedis, JedisCluster, HostAndPort&#125;</div><div class="line"></div><div class="line">object Consumer extends Logging&#123;</div><div class="line"></div><div class="line">  def main(args: Array[String]) &#123;</div><div class="line"></div><div class="line">    val prop = new Properties()</div><div class="line">    val zookeeperConnect = <span class="string">"192.168.20.33:2181,192.168.20.34:2181,192.168.20.35:2181"</span></div><div class="line">    val groupId = <span class="string">"test_group"</span></div><div class="line">    val topic = <span class="string">"test"</span></div><div class="line"></div><div class="line">    val conf = new SparkConf().setAppName(<span class="string">"test"</span>).setMaster(<span class="string">"local[2]"</span>)</div><div class="line">    val ssc = new StreamingContext(conf, Seconds(5))</div><div class="line">    val message = KafkaUtils.createStream(ssc, zookeeperConnect, groupId, Map(topic -&gt; 1))</div><div class="line"></div><div class="line">    //words by separator</div><div class="line">    val user = message.map(x =&gt; &#123;</div><div class="line">      x._2.split(<span class="string">"\t"</span>)</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    user.map(x =&gt; x).foreachRDD(x =&gt; x.collect().foreach(println))</div><div class="line"></div><div class="line">    ssc.start()</div><div class="line">    ssc.awaitTermination()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:liushingh.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/业界动态/">业界动态</a><small>1</small></li>
+  
+    <li><a href="/categories/生活娱乐/">生活娱乐</a><small>3</small></li>
+  
+    <li><a href="/categories/编程开发/">编程开发</a><small>15</small></li>
+  
+    <li><a href="/categories/网络推广/">网络推广</a><small>3</small></li>
+  
+    <li><a href="/categories/软件应用/">软件应用</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/CPA/" style="font-size: 10px;">CPA</a> <a href="/tags/CPC/" style="font-size: 10px;">CPC</a> <a href="/tags/CPM/" style="font-size: 10px;">CPM</a> <a href="/tags/CPS/" style="font-size: 10px;">CPS</a> <a href="/tags/CPT/" style="font-size: 10px;">CPT</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hive/" style="font-size: 16.67px;">Hive</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mongo/" style="font-size: 10px;">Mongo</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/Spotlight/" style="font-size: 10px;">Spotlight</a> <a href="/tags/T2O/" style="font-size: 10px;">T2O</a> <a href="/tags/UDF/" style="font-size: 10px;">UDF</a> <a href="/tags/Zeppelin/" style="font-size: 20px;">Zeppelin</a> <a href="/tags/beeline/" style="font-size: 10px;">beeline</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/consumer/" style="font-size: 10px;">consumer</a> <a href="/tags/crx/" style="font-size: 10px;">crx</a> <a href="/tags/datediff/" style="font-size: 10px;">datediff</a> <a href="/tags/doc/" style="font-size: 10px;">doc</a> <a href="/tags/document/" style="font-size: 10px;">document</a> <a href="/tags/extension/" style="font-size: 10px;">extension</a> <a href="/tags/from-unixtime/" style="font-size: 10px;">from_unixtime</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jitouch/" style="font-size: 10px;">jitouch</a> <a href="/tags/kettle/" style="font-size: 10px;">kettle</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/macbook/" style="font-size: 10px;">macbook</a> <a href="/tags/manual/" style="font-size: 10px;">manual</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/producer/" style="font-size: 10px;">producer</a> <a href="/tags/rMBP/" style="font-size: 10px;">rMBP</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spark/" style="font-size: 16.67px;">spark</a> <a href="/tags/streaming/" style="font-size: 10px;">streaming</a> <a href="/tags/thriftserver/" style="font-size: 10px;">thriftserver</a> <a href="/tags/tmall/" style="font-size: 10px;">tmall</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/函数/" style="font-size: 10px;">函数</a> <a href="/tags/天猫/" style="font-size: 10px;">天猫</a> <a href="/tags/安装/" style="font-size: 10px;">安装</a> <a href="/tags/层次/" style="font-size: 10px;">层次</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/广告类型/" style="font-size: 10px;">广告类型</a> <a href="/tags/广告系列/" style="font-size: 10px;">广告系列</a> <a href="/tags/彩票/" style="font-size: 10px;">彩票</a> <a href="/tags/怎么玩/" style="font-size: 10px;">怎么玩</a> <a href="/tags/截屏/" style="font-size: 10px;">截屏</a> <a href="/tags/手册/" style="font-size: 10px;">手册</a> <a href="/tags/技巧/" style="font-size: 13.33px;">技巧</a> <a href="/tags/护眼/" style="font-size: 10px;">护眼</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/数据仓库/" style="font-size: 10px;">数据仓库</a> <a href="/tags/文档/" style="font-size: 10px;">文档</a> <a href="/tags/时间/" style="font-size: 10px;">时间</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/渠道/" style="font-size: 13.33px;">渠道</a> <a href="/tags/状态码/" style="font-size: 10px;">状态码</a> <a href="/tags/篮彩/" style="font-size: 10px;">篮彩</a> <a href="/tags/篮球/" style="font-size: 10px;">篮球</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编译/" style="font-size: 10px;">编译</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/记忆/" style="font-size: 10px;">记忆</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 shingh liu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

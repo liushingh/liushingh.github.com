@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Seite 2 | Archiv | liushingh的博客</title>
+  <meta name="author" content="shingh liu">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="liushingh的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="liushingh的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-46267119-1']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+  
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F441b7d6c6aab75f3a2e2c31874b778b8' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">liushingh的博客</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+
+<li><a href="/atom.xml">RSS</a></li>
+
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title">Archiv</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-11T14:34:20.000Z"><a href="/2015/02/11/Hive学习之UDF/">Feb 11 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/11/Hive学习之UDF/">Hive学习之UDF</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>首先需要两个jar包：<a href="http://www.java2s.com/Code/JarDownload/hadoop/hadoop-0.20.2-core.jar.zip" target="_blank" rel="external">hadoop-0.20.2-core.jar</a>，<a href="http://www.java2s.com/Code/JarDownload/hive/hive-exec-0.7.0-cdh3u0.jar.zip" target="_blank" rel="external">hive-exec-0.7.0-cdh3u0.jar</a><br>然后编写代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> udf_test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.apache.hadoop.hive.ql.exec.UDF;</div><div class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UDFLower</span> <span class="keyword">extends</span> <span class="title">UDF</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Text <span class="title">evaluate</span><span class="params">( <span class="keyword">final</span> Text s )</span></span>&#123; </div><div class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == s )&#123; </div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span> ; </div><div class="line">        &#125; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Text(s.toString().toLowerCase()); </div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>编译（刚下载到两个jar包放到你自己的目录下，使用下面的方式编译）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javac -cp <span class="string">'.:$&#123;YOUR_DIR&#125;/lib/*'</span> UDFLower.java</div></pre></td></tr></table></figure></p>
+<p>打包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">jar cvf udf_lower.jar UDFLower.class</div></pre></td></tr></table></figure></p>
+<p>然后进入到hive控制台：<br>添加jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add jar /home/shingh/work/code/udf_lower.jar;</div></pre></td></tr></table></figure></p>
+<p>创建临时的函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create temporary function udf_lower as &apos;udf_test.UDFLower&apos;;</div></pre></td></tr></table></figure></p>
+<p>可以使用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select udf_lower(name) from users;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-04T14:56:50.000Z"><a href="/2015/02/04/vim使用小技巧/">Feb 4 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/04/vim使用小技巧/">vim使用小技巧</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="技巧一-统计单词数"><a href="#技巧一-统计单词数" class="headerlink" title="技巧一 统计单词数"></a>技巧一 统计单词数</h3><p>&#160; &#160; &#160; &#160;先提供一个实例<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%s/hello//gn</div></pre></td></tr></table></figure></p>
+<p>这个的作用是统计该文件hello这个单词出现的次数，很多人可能比较熟悉<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%s/hello/wolrd/g</div></pre></td></tr></table></figure></p>
+<p>这个是把所有的hello替换为world，加一个n表示只报告匹配的数目，并不真正进行替换</p>
+<p>持续更新中</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-02-04T14:52:49.000Z"><a href="/2015/02/04/HTTP1-1状态码/">Feb 4 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/02/04/HTTP1-1状态码/">HTTP1.1状态码</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&#160; &#160; &#160; &#160;一、常用的状态码<br>200 OK，请求成功<br>301 Moved Permanently（永久的移除），请求的网页已永久移动到新位置<br>404 Not Found（未找到），服务器找不到请求的网页<br>500 Internal Server Error（内部服务器错误），服务器遇到错误，无法完成请求<br>503 Service Unavailable（服务不可用），服务器由于超载或维护目前暂时无法使用<br>&#160; &#160; &#160; &#160;二、五大类状态码<br>&#160; &#160;1）Informational 1xx<br>1开头的状态码表征一个临时响应，而且HTTP/1.0没有定义1xx状态码<br>&#160; &#160;2）Successful 2xx<br>2开头的状态码表示客户端的请求成功接收<br>&#160; &#160;3）Redirection（重定向） 3xx<br>3开头的状态码表示完成请求需要进一步的操作<br>&#160; &#160;4）Client Error 4xx<br>4开头的状态码考虑客户端可能出错<br>&#160; &#160;5）Server Error 5xx<br>5开头的状态码表示服务器知道出错了或不能完成请求</p>
+<p>更详细的信息可查看：<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" target="_blank" rel="external">http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-31T13:25:20.000Z"><a href="/2015/01/31/R语言/">Jan 31 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/31/R语言/">R语言学习之安装</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>下载地址 <a href="http://ftp.ctex.org/mirrors/CRAN/" target="_blank" rel="external">http://ftp.ctex.org/mirrors/CRAN/</a><br>可以手动下载，也可以使用命令下载<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://ftp.ctex.org/mirrors/CRAN/src/base/R-3/R-3.1.2.tar.gz</div></pre></td></tr></table></figure></p>
+<p>在编译之前需要先安装几个依赖程序：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">yum install gcc-gfortran         <span class="comment">#否则报”configure: error: No F77 compiler found”错误</span></div><div class="line">yum install gcc gcc-c++          <span class="comment">#否则报”configure: error: C++ preprocessor “/lib/cpp” fails sanity check”错误</span></div><div class="line">yum install readline-devel       <span class="comment">#否则报”–with-readline=yes (default) and headers/libs are not available”错误</span></div><div class="line">yum install libXt-devel          <span class="comment">#否则报”configure: error: –with-x=yes (default) and X11 headers/libs are not available”错误</span></div></pre></td></tr></table></figure></p>
+<p>或者直接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gcc-gfortran gcc gcc-c++ readline-devel libXt-devel</div></pre></td></tr></table></figure></p>
+<p>然后编译，很简单（可能涉及到权限问题，建议用root用户编译）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<p>直接输入R然后回车进入到R控制台就可以开始使用了，输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plot(cars<span class="variable">$dist</span>~cars<span class="variable">$speed</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="/img/R_graph1.jpg" alt="cars"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-18T13:28:14.000Z"><a href="/2015/01/18/常用官方文档整理/">Jan 18 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/18/常用官方文档整理/">常用官方文档整理</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>数据库：<br>Oracle 12c: <a href="http://docs.oracle.com/database/121/index.htm" target="_blank" rel="external">http://docs.oracle.com/database/121/index.htm</a><br>Mysql 5.7: <a href="http://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.7/en/</a><br>MongoDB: <a href="http://docs.mongodb.org/manual/" target="_blank" rel="external">http://docs.mongodb.org/manual/</a></p>
+<p>Hadoop: <a href="http://hadoop.apache.org/docs/current/" target="_blank" rel="external">http://hadoop.apache.org/docs/current/</a><br>Hive: <a href="https://cwiki.apache.org/confluence/display/Hive/Home" target="_blank" rel="external">https://cwiki.apache.org/confluence/display/Hive/Home</a><br>Spark: <a href="https://spark.apache.org/docs/latest/index.html" target="_blank" rel="external">https://spark.apache.org/docs/latest/index.html</a><br>Storm: <a href="https://storm.apache.org/documentation/Home.html" target="_blank" rel="external">https://storm.apache.org/documentation/Home.html</a><br>Kafka: <a href="http://kafka.apache.org/documentation.html" target="_blank" rel="external">http://kafka.apache.org/documentation.html</a><br>RabbitMQ: <a href="http://www.rabbitmq.com/documentation.html" target="_blank" rel="external">http://www.rabbitmq.com/documentation.html</a></p>
+<p>语言：<br>Python 2.7: <a href="https://docs.python.org/2.7/" target="_blank" rel="external">https://docs.python.org/2.7/</a><br>Python 3.x: <a href="https://docs.python.org/3/" target="_blank" rel="external">https://docs.python.org/3/</a><br>Java 8: <a href="http://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="external">http://docs.oracle.com/javase/8/docs/api/</a></p>
+<p>工具：<br>kettle: <a href="http://wiki.pentaho.com/display/EAI/Pentaho+Data+Integration+Steps" target="_blank" rel="external">http://wiki.pentaho.com/display/EAI/Pentaho+Data+Integration+Steps</a> </p>
+<p>vim: <a href="http://vimdoc.sourceforge.net/htmldoc/help.html" target="_blank" rel="external">http://vimdoc.sourceforge.net/htmldoc/help.html</a><br>GA: <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference" target="_blank" rel="external">https://developers.google.com/analytics/devguides/reporting/core/v3/reference</a><br>也欢迎大家补充</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-18T12:17:21.000Z"><a href="/2015/01/18/篮彩的玩法/">Jan 18 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/18/篮彩的玩法/">篮彩的玩法</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h4 id="玩法一，篮彩胜负"><a href="#玩法一，篮彩胜负" class="headerlink" title="玩法一，篮彩胜负"></a>玩法一，篮彩胜负</h4><p>&#160; &#160; &#160; &#160;这个就不说了，就是主场球队赢球还是输球；</p>
+<h4 id="玩法二，篮彩让分胜负"><a href="#玩法二，篮彩让分胜负" class="headerlink" title="玩法二，篮彩让分胜负"></a>玩法二，篮彩让分胜负</h4><p>&#160; &#160; &#160; &#160;这个是针对主队的，主队得分加上让分数后（让分为正是加，让分为负就是减），主队的胜负情况，比如主队是湖人队（最终得分106），客队是凯尔特人队（最终得分100），让分是－5.5，意思是湖人的最终得分减去5后和凯尔特人队队最终得分比是胜还是负，明显106-5.5&gt;100，结果是让分主胜，如果让分是－6.5，106-6.5&lt;100，结果就是让分主负了；</p>
+<h4 id="玩法三，篮彩大小分"><a href="#玩法三，篮彩大小分" class="headerlink" title="玩法三，篮彩大小分"></a>玩法三，篮彩大小分</h4><p>&#160; &#160; &#160; &#160;买篮彩大小分的时候，有个预设总分，大分表示比赛双方的比分求和后大于预设总分，小分表示比赛双方的比分求和后小于预设总分；</p>
+<h4 id="玩法四，篮彩胜分差"><a href="#玩法四，篮彩胜分差" class="headerlink" title="玩法四，篮彩胜分差"></a>玩法四，篮彩胜分差</h4><p>&#160; &#160; &#160; &#160;顾名思义，就是指两队的分差，举个例子：主胜（1～5）表示主队赢客队1到5分<br>注：上面几种玩法都包含加时</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-15T14:38:20.000Z"><a href="/2015/01/15/MacBook-Pro使用小技巧/">Jan 15 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/15/MacBook-Pro使用小技巧/">MacBook Pro使用小技巧</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&#160; &#160; &#160; &#160;现在使用MacBook的用户越来越多了，但不是所有的人都能熟练的使用，下面介绍一些自己平时觉得不错的小技巧，供大家参考，也欢迎有更好的建议提出来。<br>&#160; &#160; &#160; &#160;废话不多说了，直接进入正题：<br>说技巧前先把键盘的一些按键说明一下<br><img src="/img/key.jpg" alt="按键"></p>
+<h1 id="技巧一，截屏"><a href="#技巧一，截屏" class="headerlink" title="技巧一，截屏"></a>技巧一，截屏</h1><p>&#160; &#160; &#160; &#160;可能很多初次使用的用户不知道怎么截屏，其实很简单，同时按下shift+control+command+3就可以在剪切版里获取整个屏幕，同时按下shift+control+command+4能使用通过拖动鼠标截取屏幕并复制到剪切版里；</p>
+<h1 id="技巧二，多桌面"><a href="#技巧二，多桌面" class="headerlink" title="技巧二，多桌面"></a>技巧二，多桌面</h1><p>&#160; &#160; &#160; &#160;很简单，直接使用快捷键F3</p>
+<h1 id="技巧三，jitouch"><a href="#技巧三，jitouch" class="headerlink" title="技巧三，jitouch"></a>技巧三，jitouch</h1><p>&#160; &#160; &#160; &#160;强烈推荐<a href="http://www.jitouch.com/trackpad/" target="_blank" rel="external">jitouch</a>，它可以让你的触摸板超好用，甚至可以代替鼠标</p>
+<h1 id="技巧四，Spotlight"><a href="#技巧四，Spotlight" class="headerlink" title="技巧四，Spotlight"></a>技巧四，Spotlight</h1><p>&#160; &#160; &#160; &#160;Mac自带的很棒的搜索工具，Spotlight默认会把搜索结果按类型分类，但你也可以自定义搜索类型或某些特征。举几个例子：</p>
+<h3 id="设置搜索文件类型"><a href="#设置搜索文件类型" class="headerlink" title="设置搜索文件类型"></a>设置搜索文件类型</h3><p>如果你想搜索名字里包含 rock 的音乐文件,可以输入以 下内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kind:music rock</div></pre></td></tr></table></figure></p>
+<h3 id="通过标签搜索"><a href="#通过标签搜索" class="headerlink" title="通过标签搜索"></a>通过标签搜索</h3><p>如果你想搜索带 红色标签的文件,可以输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label:红</div></pre></td></tr></table></figure></p>
+<h3 id="指定Spotlight搜索结果的日期"><a href="#指定Spotlight搜索结果的日期" class="headerlink" title="指定Spotlight搜索结果的日期"></a>指定Spotlight搜索结果的日期</h3><p>你可以让 Spotlight 只返回特定某一天或一段时间的搜索结果<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">date:2015/3/12</div><div class="line">date:2015/1/15-2015/3/12</div></pre></td></tr></table></figure></p>
+<h3 id="指定不搜索的关键字"><a href="#指定不搜索的关键字" class="headerlink" title="指定不搜索的关键字"></a>指定不搜索的关键字</h3><p>如果你想搜索ios，但不要出现android，可以输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ios -android</div></pre></td></tr></table></figure></p>
+<h1 id="技巧五，系统音量微调"><a href="#技巧五，系统音量微调" class="headerlink" title="技巧五，系统音量微调"></a>技巧五，系统音量微调</h1><p>F11,F12分别是调小和调大音量，相信大家都知道了，但如果觉得一格音量太大或太小的话，如何实现微调呢，很简单：<br>先按住Option/alt+Shift键再调节音量，这时调节一次就变为原来的1/4了。（注：调节屏幕亮度也同样适用）</p>
+<h1 id="技巧六，让Mac说话"><a href="#技巧六，让Mac说话" class="headerlink" title="技巧六，让Mac说话"></a>技巧六，让Mac说话</h1><p>打开terminal（终端），输入say hello，然后回车，你的Mac就会向你问好了</p>
+<h1 id="技巧七，阅读中查单词"><a href="#技巧七，阅读中查单词" class="headerlink" title="技巧七，阅读中查单词"></a>技巧七，阅读中查单词</h1><p>当你浏览网页或看文章的时候，有时会遇到不认识的单词，但打开词典然后查询比较麻烦，甚至会打断阅读，有个超简单的方法，直接三个手指同时点击，就可以查看这个单词点释义了</p>
+<p>持续更新中</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-13T14:25:45.000Z"><a href="/2015/01/13/天猫试水-T2O/">Jan 13 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/13/天猫试水-T2O/">天猫试水&quot;T2O&quot;</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&#160; &#160; &#160; &#160;T最近东方卫视的开年大剧《何以笙箫默》和普通的电视剧有了一些不一样，东方卫视和天猫达成了“T2O”的合作，电视机前的观众看到剧中的衣服觉得很喜欢，就可以直接使用天猫客户端扫一扫，然后就可以购买了，是不是觉得很方便呢。<br>&#160; &#160; &#160; &#160;T2O是一个新的模式，是TV to Online的缩写，听说之前天猫就已经与央视《舌尖上的中国》合作中推出了这一模式，当节目播出各地美食时，观众们便可以在天猫同步下单购买产品。<br>&#160; &#160; &#160; &#160;这一模式我觉得也算是一个创新，至于后面怎么发展，还是看老马和其他电商怎么玩了。<br><img src="/img/t2o.jpg" alt="何以笙箫默"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-01-12T14:21:55.000Z"><a href="/2015/01/12/下载chrome插件CRX/">Jan 12 2015</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/01/12/下载chrome插件CRX/">下载chrome插件CRX</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>由于现在Google被墙，很多好的chrome插件没法直接安装，所以找到一个直接下载CRX文件的方法，然后通过离线安装就可以使用了<br>首先打开 <a href="http://chrome-extension-downloader.com/" target="_blank" rel="external">http://chrome-extension-downloader.com/</a><br>把你需要下载的插件的ID粘贴到输入框，点击Download extension就可以下载了<br>离线安装方法：点击菜单-&gt;更多工具-&gt;扩展程序，直接把crx文件拖进去即可</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-11-24T12:55:10.000Z"><a href="/2014/11/24/广告系列参数/">Nov 24 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/24/广告系列参数/">广告系列参数</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <ol>
+<li>广告系列来源（utm_source）<br>必填属性。使用 utm_source 来标识搜索引擎、简报名称或其他来源。<br>示例：utm_source=google</li>
+<li>广告系列媒介（utm_medium）<br>必填属性。使用 utm_medium 来标识媒介，比如电子邮件或每次点击费用。<br>示例：utm_medium=cpc</li>
+<li>广告系列字词(utm_term)<br>用于付费搜索。使用utm_term来注明此广告的关键字。<br>示例：utm_term=running+shoes</li>
+<li>广告系列内容 (utm_content)<br>用于A/B测试和按内容进行定位的广告。使用utm_content区分指向同一网址的广告或链接。<br>示例：utm_content=logolink或utm_content=textlink</li>
+<li>广告系列名称(utm_campaign)<br>用于关键字分析。使用utm_campaign来标识特定的产品促销活动或战略性广告系列。<br>示例：utm_campaign=spring_sale</li>
+</ol>
+<p>###推荐文章<br><a href="http://liushingh.github.io/2014/11/17/%E5%B8%B8%E7%94%A8%E7%BD%91%E7%BB%9C%E5%B9%BF%E5%91%8A%E7%B1%BB%E5%9E%8B/">常用广告类型</a><br><a href="http://liushingh.github.io/2014/11/24/%E5%B9%BF%E5%91%8A%E6%B8%A0%E9%81%93%E5%8F%82%E6%95%B0/">常用广告渠道</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+
+  <nav id="pagination">
+  
+    <a href="/archives/" class="alignleft prev">Vorherige Seite</a>
+  
+  
+    <a href="/archives/page/3/" class="alignright next">Nächste Seite</a>
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Suche">
+    <input type="hidden" name="q" value="site:liushingh.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/业界动态/">业界动态</a><small>1</small></li>
+  
+    <li><a href="/categories/生活娱乐/">生活娱乐</a><small>3</small></li>
+  
+    <li><a href="/categories/编程开发/">编程开发</a><small>15</small></li>
+  
+    <li><a href="/categories/网络推广/">网络推广</a><small>3</small></li>
+  
+    <li><a href="/categories/软件应用/">软件应用</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/CPA/" style="font-size: 10px;">CPA</a> <a href="/tags/CPC/" style="font-size: 10px;">CPC</a> <a href="/tags/CPM/" style="font-size: 10px;">CPM</a> <a href="/tags/CPS/" style="font-size: 10px;">CPS</a> <a href="/tags/CPT/" style="font-size: 10px;">CPT</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hive/" style="font-size: 16.67px;">Hive</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mongo/" style="font-size: 10px;">Mongo</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/Spotlight/" style="font-size: 10px;">Spotlight</a> <a href="/tags/T2O/" style="font-size: 10px;">T2O</a> <a href="/tags/UDF/" style="font-size: 10px;">UDF</a> <a href="/tags/Zeppelin/" style="font-size: 20px;">Zeppelin</a> <a href="/tags/beeline/" style="font-size: 10px;">beeline</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/consumer/" style="font-size: 10px;">consumer</a> <a href="/tags/crx/" style="font-size: 10px;">crx</a> <a href="/tags/datediff/" style="font-size: 10px;">datediff</a> <a href="/tags/doc/" style="font-size: 10px;">doc</a> <a href="/tags/document/" style="font-size: 10px;">document</a> <a href="/tags/extension/" style="font-size: 10px;">extension</a> <a href="/tags/from-unixtime/" style="font-size: 10px;">from_unixtime</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jitouch/" style="font-size: 10px;">jitouch</a> <a href="/tags/kettle/" style="font-size: 10px;">kettle</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/macbook/" style="font-size: 10px;">macbook</a> <a href="/tags/manual/" style="font-size: 10px;">manual</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/producer/" style="font-size: 10px;">producer</a> <a href="/tags/rMBP/" style="font-size: 10px;">rMBP</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spark/" style="font-size: 16.67px;">spark</a> <a href="/tags/streaming/" style="font-size: 10px;">streaming</a> <a href="/tags/thriftserver/" style="font-size: 10px;">thriftserver</a> <a href="/tags/tmall/" style="font-size: 10px;">tmall</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/函数/" style="font-size: 10px;">函数</a> <a href="/tags/天猫/" style="font-size: 10px;">天猫</a> <a href="/tags/安装/" style="font-size: 10px;">安装</a> <a href="/tags/层次/" style="font-size: 10px;">层次</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/广告类型/" style="font-size: 10px;">广告类型</a> <a href="/tags/广告系列/" style="font-size: 10px;">广告系列</a> <a href="/tags/彩票/" style="font-size: 10px;">彩票</a> <a href="/tags/怎么玩/" style="font-size: 10px;">怎么玩</a> <a href="/tags/截屏/" style="font-size: 10px;">截屏</a> <a href="/tags/手册/" style="font-size: 10px;">手册</a> <a href="/tags/技巧/" style="font-size: 13.33px;">技巧</a> <a href="/tags/护眼/" style="font-size: 10px;">护眼</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/数据仓库/" style="font-size: 10px;">数据仓库</a> <a href="/tags/文档/" style="font-size: 10px;">文档</a> <a href="/tags/时间/" style="font-size: 10px;">时间</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/渠道/" style="font-size: 13.33px;">渠道</a> <a href="/tags/状态码/" style="font-size: 10px;">状态码</a> <a href="/tags/篮彩/" style="font-size: 10px;">篮彩</a> <a href="/tags/篮球/" style="font-size: 10px;">篮球</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编译/" style="font-size: 10px;">编译</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/记忆/" style="font-size: 10px;">记忆</a>
+  </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2017 shingh liu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

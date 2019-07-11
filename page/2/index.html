@@ -75,6 +75,43 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-04-14T08:54:24.000Z"><a href="/2016/04/14/Hive学习之时间函数/">Apr 14 2016</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/14/Hive学习之时间函数/">Hive学习之时间函数</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>首先介绍from_unixtime函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">调用方式：from_unixtime(bigint unixtime[, string format])</div><div class="line">返回值：  string</div></pre></td></tr></table></figure></p>
+<p>我们常用的方式是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">把当前时间的时间戳转换为指定格式：from_unixtime(unix_timestamp(), <span class="string">'yyyy-MM-dd HH:mm:ss'</span>)</div></pre></td></tr></table></figure></p>
+<p>其实也可以通过这个函数获得指定日期是一周中的星期几<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">获得2016-04-14这一天是星期几：from_unixtime(unix_timestamp(<span class="string">'2016-04-14'</span>, <span class="string">'yyyy-MM-dd'</span>), <span class="string">'E'</span>) <span class="comment">#返回值是英文单词缩写，比如 Mon 表示星期一</span></div></pre></td></tr></table></figure></p>
+<p>还有另一种方式可以获得指定日期是一周中的星期几<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">获得2016-04-14这一天是星期几：pmod(datediff(<span class="string">'2016-04-14'</span>, <span class="string">'2012-01-01'</span>), 7) <span class="comment">#0-6表示星期日到星期六</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-03-25T14:24:57.000Z"><a href="/2015/03/25/数字记忆编码/">Mar 25 2015</a></time>
       
       
@@ -408,40 +445,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2015-01-12T14:21:55.000Z"><a href="/2015/01/12/下载chrome插件CRX/">Jan 12 2015</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/01/12/下载chrome插件CRX/">下载chrome插件CRX</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>由于现在Google被墙，很多好的chrome插件没法直接安装，所以找到一个直接下载CRX文件的方法，然后通过离线安装就可以使用了<br>首先打开 <a href="http://chrome-extension-downloader.com/" target="_blank" rel="external">http://chrome-extension-downloader.com/</a><br>把你需要下载的插件的ID粘贴到输入框，点击Download extension就可以下载了<br>离线安装方法：点击菜单-&gt;更多工具-&gt;扩展程序，直接把crx文件拖进去即可</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -469,7 +472,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
   
     <li><a href="/categories/生活娱乐/">生活娱乐</a><small>3</small></li>
   
-    <li><a href="/categories/编程开发/">编程开发</a><small>16</small></li>
+    <li><a href="/categories/编程开发/">编程开发</a><small>17</small></li>
   
     <li><a href="/categories/网络推广/">网络推广</a><small>3</small></li>
   
@@ -483,7 +486,7 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/CPA/" style="font-size: 10px;">CPA</a> <a href="/tags/CPC/" style="font-size: 10px;">CPC</a> <a href="/tags/CPM/" style="font-size: 10px;">CPM</a> <a href="/tags/CPS/" style="font-size: 10px;">CPS</a> <a href="/tags/CPT/" style="font-size: 10px;">CPT</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hive/" style="font-size: 16.67px;">Hive</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Mongo/" style="font-size: 10px;">Mongo</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/Spotlight/" style="font-size: 10px;">Spotlight</a> <a href="/tags/T2O/" style="font-size: 10px;">T2O</a> <a href="/tags/UDF/" style="font-size: 10px;">UDF</a> <a href="/tags/Zeppelin/" style="font-size: 20px;">Zeppelin</a> <a href="/tags/beeline/" style="font-size: 10px;">beeline</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/consumer/" style="font-size: 10px;">consumer</a> <a href="/tags/crx/" style="font-size: 10px;">crx</a> <a href="/tags/datediff/" style="font-size: 10px;">datediff</a> <a href="/tags/doc/" style="font-size: 10px;">doc</a> <a href="/tags/document/" style="font-size: 10px;">document</a> <a href="/tags/extension/" style="font-size: 10px;">extension</a> <a href="/tags/from-unixtime/" style="font-size: 10px;">from_unixtime</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jitouch/" style="font-size: 10px;">jitouch</a> <a href="/tags/kettle/" style="font-size: 10px;">kettle</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/macbook/" style="font-size: 10px;">macbook</a> <a href="/tags/manual/" style="font-size: 10px;">manual</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/producer/" style="font-size: 10px;">producer</a> <a href="/tags/rMBP/" style="font-size: 10px;">rMBP</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spark/" style="font-size: 16.67px;">spark</a> <a href="/tags/streaming/" style="font-size: 10px;">streaming</a> <a href="/tags/thriftserver/" style="font-size: 10px;">thriftserver</a> <a href="/tags/tmall/" style="font-size: 10px;">tmall</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/函数/" style="font-size: 10px;">函数</a> <a href="/tags/天猫/" style="font-size: 10px;">天猫</a> <a href="/tags/安装/" style="font-size: 10px;">安装</a> <a href="/tags/层次/" style="font-size: 10px;">层次</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/广告类型/" style="font-size: 10px;">广告类型</a> <a href="/tags/广告系列/" style="font-size: 10px;">广告系列</a> <a href="/tags/彩票/" style="font-size: 10px;">彩票</a> <a href="/tags/怎么玩/" style="font-size: 10px;">怎么玩</a> <a href="/tags/截屏/" style="font-size: 10px;">截屏</a> <a href="/tags/手册/" style="font-size: 10px;">手册</a> <a href="/tags/技巧/" style="font-size: 13.33px;">技巧</a> <a href="/tags/护眼/" style="font-size: 10px;">护眼</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/数据仓库/" style="font-size: 10px;">数据仓库</a> <a href="/tags/文档/" style="font-size: 10px;">文档</a> <a href="/tags/时间/" style="font-size: 10px;">时间</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/渠道/" style="font-size: 13.33px;">渠道</a> <a href="/tags/状态码/" style="font-size: 10px;">状态码</a> <a href="/tags/篮彩/" style="font-size: 10px;">篮彩</a> <a href="/tags/篮球/" style="font-size: 10px;">篮球</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编译/" style="font-size: 10px;">编译</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/记忆/" style="font-size: 10px;">记忆</a>
+    <a href="/tags/Binlog/" style="font-size: 10px;">Binlog</a> <a href="/tags/CPA/" style="font-size: 10px;">CPA</a> <a href="/tags/CPC/" style="font-size: 10px;">CPC</a> <a href="/tags/CPM/" style="font-size: 10px;">CPM</a> <a href="/tags/CPS/" style="font-size: 10px;">CPS</a> <a href="/tags/CPT/" style="font-size: 10px;">CPT</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hadoop/" style="font-size: 10px;">Hadoop</a> <a href="/tags/Hive/" style="font-size: 16.67px;">Hive</a> <a href="/tags/JDBC/" style="font-size: 10px;">JDBC</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/MaxWll/" style="font-size: 10px;">MaxWll</a> <a href="/tags/Mongo/" style="font-size: 10px;">Mongo</a> <a href="/tags/MongoDB/" style="font-size: 13.33px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Mysql/" style="font-size: 10px;">Mysql</a> <a href="/tags/Oracle/" style="font-size: 10px;">Oracle</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/R/" style="font-size: 10px;">R</a> <a href="/tags/Spotlight/" style="font-size: 10px;">Spotlight</a> <a href="/tags/T2O/" style="font-size: 10px;">T2O</a> <a href="/tags/UDF/" style="font-size: 10px;">UDF</a> <a href="/tags/Zeppelin/" style="font-size: 20px;">Zeppelin</a> <a href="/tags/beeline/" style="font-size: 10px;">beeline</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/consumer/" style="font-size: 10px;">consumer</a> <a href="/tags/crx/" style="font-size: 10px;">crx</a> <a href="/tags/datediff/" style="font-size: 10px;">datediff</a> <a href="/tags/doc/" style="font-size: 10px;">doc</a> <a href="/tags/document/" style="font-size: 10px;">document</a> <a href="/tags/extension/" style="font-size: 10px;">extension</a> <a href="/tags/from-unixtime/" style="font-size: 10px;">from_unixtime</a> <a href="/tags/heap/" style="font-size: 10px;">heap</a> <a href="/tags/hive/" style="font-size: 10px;">hive</a> <a href="/tags/install/" style="font-size: 10px;">install</a> <a href="/tags/interpreter/" style="font-size: 10px;">interpreter</a> <a href="/tags/jitouch/" style="font-size: 10px;">jitouch</a> <a href="/tags/kettle/" style="font-size: 10px;">kettle</a> <a href="/tags/mac/" style="font-size: 10px;">mac</a> <a href="/tags/macbook/" style="font-size: 10px;">macbook</a> <a href="/tags/manual/" style="font-size: 10px;">manual</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/producer/" style="font-size: 10px;">producer</a> <a href="/tags/rMBP/" style="font-size: 10px;">rMBP</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/spark/" style="font-size: 16.67px;">spark</a> <a href="/tags/streaming/" style="font-size: 10px;">streaming</a> <a href="/tags/thriftserver/" style="font-size: 10px;">thriftserver</a> <a href="/tags/tmall/" style="font-size: 10px;">tmall</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/函数/" style="font-size: 10px;">函数</a> <a href="/tags/天猫/" style="font-size: 10px;">天猫</a> <a href="/tags/安装/" style="font-size: 10px;">安装</a> <a href="/tags/层次/" style="font-size: 10px;">层次</a> <a href="/tags/广告/" style="font-size: 10px;">广告</a> <a href="/tags/广告类型/" style="font-size: 10px;">广告类型</a> <a href="/tags/广告系列/" style="font-size: 10px;">广告系列</a> <a href="/tags/彩票/" style="font-size: 10px;">彩票</a> <a href="/tags/怎么玩/" style="font-size: 10px;">怎么玩</a> <a href="/tags/截屏/" style="font-size: 10px;">截屏</a> <a href="/tags/手册/" style="font-size: 10px;">手册</a> <a href="/tags/技巧/" style="font-size: 13.33px;">技巧</a> <a href="/tags/护眼/" style="font-size: 10px;">护眼</a> <a href="/tags/插件/" style="font-size: 10px;">插件</a> <a href="/tags/数据仓库/" style="font-size: 10px;">数据仓库</a> <a href="/tags/文档/" style="font-size: 10px;">文档</a> <a href="/tags/时间/" style="font-size: 10px;">时间</a> <a href="/tags/流量/" style="font-size: 10px;">流量</a> <a href="/tags/渠道/" style="font-size: 13.33px;">渠道</a> <a href="/tags/状态码/" style="font-size: 10px;">状态码</a> <a href="/tags/篮彩/" style="font-size: 10px;">篮彩</a> <a href="/tags/篮球/" style="font-size: 10px;">篮球</a> <a href="/tags/统计/" style="font-size: 10px;">统计</a> <a href="/tags/编译/" style="font-size: 10px;">编译</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/记忆/" style="font-size: 10px;">记忆</a>
   </div>
 </div>
 

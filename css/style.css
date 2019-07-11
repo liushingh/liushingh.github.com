@@ -101,6 +101,12 @@ a:hover {
     margin-right: 0;
   }
 }
+.table-d table {
+  background: #000;
+}
+.table-d table td {
+  background: #fff;
+}
 #header {
   text-shadow: 0 0 1px #fff;
   margin: 50px auto;
